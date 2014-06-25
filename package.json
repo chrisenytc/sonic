@@ -1,0 +1,60 @@
+{
+    "name": "sonic",
+    "description": "An super fast content delivery network (CDN) for node.js",
+    "version": "0.1.0",
+    "private": true,
+    "homepage": "https://github.com/enytc/sonic",
+    "author": {
+        "name": "Christopher EnyTC",
+        "email": "chrisenytc@gmail.com"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/enytc/sonic.git"
+    },
+    "bugs": {
+        "url": "https://github.com/enytc/sonic/issues"
+    },
+    "licenses": [{
+        "type": "BSD",
+        "url": "https://github.com/enytc/sonic/blob/master/LICENSE"
+    }],
+    "main": "app.js",
+    "engines": {
+        "node": ">= 0.10.26",
+        "npm": ">=1.4.3"
+    },
+    "scripts": {
+        "start": "./node_modules/pm2/bin/pm2 start app.js --name sonic",
+        "test": "make test"
+    },
+    "dependencies": {
+        "express": "~3.4.7",
+        "body-parser": "~1.0.2",
+        "method-override": "~1.0.0",
+        "morgan": "~1.0.0",
+        "compression": "1.0.1",
+        "response-time": "~1.0.0",
+        "cors": "~2.1.1",
+        "mongoose": "~3.8.7",
+        "mongoose-timestamp": "~0.2.0",
+        "mongoose-validator": "~0.2.2",
+        "underscore": "~1.6.0",
+        "underscore.string": "~2.3.3",
+        "moment": "~2.6.0",
+        "colors": "~0.6.2",
+        "prettyjson": "~0.11.1",
+        "pm2": "~0.8.15"
+    },
+    "devDependencies": {
+        "mocha": "~1.10.0",
+        "chai": "~1.8.0"
+    },
+    "keywords": [
+        "api",
+        "fast",
+        "cdn",
+        "assets",
+        "cache"
+    ]
+}

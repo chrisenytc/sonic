@@ -1,0 +1,10 @@
+{
+    "name": "Sonic API",
+    "description": "Sonic API: An super fast content delivery network (CDN) for node.js",
+    "version": "0.1.0",
+    "url": "https://github.com/enytc/sonic",
+    "options": {
+        "outdir": "./docs",
+        "paths": "./lib"
+    }
+}
