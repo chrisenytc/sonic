@@ -25,12 +25,19 @@ var AssetSchema = new Schema({
     name: {
         type: String,
         require: true,
+        unique: true,
         set: slugify
     },
 
     version: {
         type: String,
+        unique: true,
         require: true
+    },
+
+    bucket: {
+        type: Schema.ObjectId,
+        ref: 'Bucket'
     },
 
     owner: {
@@ -45,5 +52,45 @@ var AssetSchema = new Schema({
  */
 AssetSchema.plugin(timestamps);
 
+/*
+ * Middlewares
+ */
+
+AssetSchema.pre('save', function(next) {
+    if (this.isNew || this.isModified('name')) {
+        Asset.findOne({
+            name: this.name
+        }, function(err, user) {
+            if (err) {
+                return next(err);
+            }
+            if (user) {
+                return next(new Error('This asset name already exists!'));
+            }
+            return next();
+        });
+    } else {
+        return next();
+    }
+});
+
+AssetSchema.pre('save', function(next) {
+    if (this.isNew || this.isModified('version')) {
+        Asset.findOne({
+            version: this.version
+        }, function(err, user) {
+            if (err) {
+                return next(err);
+            }
+            if (user) {
+                return next(new Error('This asset version already exists!'));
+            }
+            return next();
+        });
+    } else {
+        return next();
+    }
+});
+
 //Exports model
-module.exports = mongoose.model('Asset', AssetSchema);
+var Asset = module.exports = mongoose.model('Asset', AssetSchema);

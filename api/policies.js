@@ -16,5 +16,13 @@ module.exports = {
 
     UserCtrl: {
         '*': true
+    },
+
+    /*
+     * Policie => BucketCtrl
+     */
+
+    BucketCtrl: {
+        '*': true
     }
 };

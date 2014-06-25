@@ -13,6 +13,10 @@ var mongoose = require('mongoose'),
  */
 var BucketSchema = new Schema({
 
+	name: {
+        type: String
+    },
+
     owner: {
         type: Schema.ObjectId,
         ref: 'User'

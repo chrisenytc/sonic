@@ -71,5 +71,36 @@ module.exports = {
     'get /api/users': {
         controller: 'UserCtrl',
         action: 'index'
-    }
+    },
+
+    /**********************************/
+    /* Buckets                        */
+    /**********************************/
+
+    /*
+     * Route => POST /api/buckets
+     */
+
+    'post /api/buckets': {
+        controller: 'BucketCtrl',
+        action: 'create'
+    },
+
+    /*
+     * Route => DELETE /api/buckets/:id
+     */
+
+    'delete /api/buckets/:id': {
+        controller: 'BucketCtrl',
+        action: 'remove'
+    },
+
+    /*
+     * Route => GET /api/buckets
+     */
+
+    'get /api/buckets': {
+        controller: 'BucketCtrl',
+        action: 'index'
+    },
 };

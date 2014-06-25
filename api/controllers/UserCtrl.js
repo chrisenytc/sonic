@@ -162,7 +162,7 @@ module.exports = function (app) {
     };
 
     /*
-     * Route => GET /api/users/:id
+     * Route => DELETE /api/users/:id
      */
 
     UserController.prototype.remove = function remove(req, res, next) {

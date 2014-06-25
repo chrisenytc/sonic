@@ -19,16 +19,17 @@ var fs = require('fs');
  *
  * @example
  *
- *     fileService.exists('./tocalivros');
+ *     fileService.exists('./filename', function() {});
  *
  * @method exists
  * @public
  * @param {String} path File path of archive
+ * @param {Function} callback Callback with data
  * @return {String} Returns true if file exists
  */
 
-exports.exists = function exists(path) {
-    return fs.existsSync(path);
+exports.exists = function exists(path, callback) {
+    return fs.exists(path, callback);
 };
 
 /**
@@ -36,18 +37,19 @@ exports.exists = function exists(path) {
  *
  * @example
  *
- *     fileService.read('./tocalivros');
+ *     fileService.read('./filename', function() {});
  *
  * @method read
  * @public
  * @param {String} fillepath File path of archive
  * @param {String} encoding Encoding
+ * @param {Function} callback Callback with data
  * @return {String} Returns file content
  */
 
-exports.read = function readFile(filepath, encoding) {
+exports.read = function readFile(filepath, encoding, callback) {
     //Read and return this file content
-    return fs.readFileSync(filepath, encoding);
+    return fs.readFile(filepath, {encoding: encoding}, callback);
 };
 
 /**
@@ -55,7 +57,7 @@ exports.read = function readFile(filepath, encoding) {
  *
  * @example
  *
- *     fileService.readStream('./tocalivros');
+ *     fileService.readStream('./filename');
  *
  * @method readStream
  * @public
@@ -73,17 +75,18 @@ exports.readStream = function readStream(filepath) {
  *
  * @example
  *
- *     fileService.write('./tocalivros', 'string data');
+ *     fileService.write('./filename', 'string data', function() {});
  *
  * @method write
  * @public
  * @param {String} fillepath File path of archive
+ * @param {Function} callback Callback with data
  * @param {String} data Data of file
  */
 
-exports.write = function writeFile(filepath, data) {
+exports.write = function writeFile(filepath, data, callback) {
     //Read and return this file content
-    fs.writeFileSync(filepath, data);
+    fs.writeFile(filepath, data, callback);
 };
 
 /**
@@ -91,15 +94,16 @@ exports.write = function writeFile(filepath, data) {
  *
  * @example
  *
- *     fileService.mkdir('./tocalivros');
+ *     fileService.mkdir('./filename', function() {});
  *
  * @method mkdir
  * @public
  * @param {String} path folder path
+ * @param {Function} callback Callback with data
  */
 
-exports.mkdir = function mkdir(path) {
-    fs.mkdirSync(path);
+exports.mkdir = function mkdir(path, callback) {
+    fs.mkdir(path, callback);
 };
 
 /**
@@ -107,15 +111,16 @@ exports.mkdir = function mkdir(path) {
  *
  * @example
  *
- *     fileService.remove('./tocalivros');
+ *     fileService.remove('./filename', function() {});
  *
  * @method remove
  * @public
  * @param {String} path File path of archive
+ * @param {Function} callback Callback with data
  */
 
-exports.remove = function remove(path) {
-    fs.unlinkSync(path);
+exports.remove = function remove(path, callback) {
+    fs.unlink(path, callback);
 };
 
 /**
@@ -123,7 +128,7 @@ exports.remove = function remove(path) {
  *
  * @example
  *
- *     fileService.rm('./tocalivros');
+ *     fileService.rm('./filename');
  *
  * @method rm
  * @public
@@ -149,7 +154,7 @@ exports.rm = function rm(path) {
  *
  * @example
  *
- *     fileService.isFile('./tocalivros');
+ *     fileService.isFile('./filename');
  *
  * @method isFile
  * @public
@@ -167,7 +172,7 @@ exports.isFile = function isFile(path) {
  *
  * @example
  *
- *     fileService.isDir('./tocalivros');
+ *     fileService.isDir('./filename');
  *
  * @method isDir
  * @public
