@@ -57,13 +57,16 @@ var AssetSchema = new Schema({
 AssetSchema.plugin(timestamps);
 
 //Schema Configs
-AssetSchema.set('toJSON', {
-   virtuals: true
-});
-
 AssetSchema.set('toObject', {
    virtuals: true
 });
+
+AssetSchema.methods.toJSON = function(options) {
+  var document = this.toObject(options);
+  document.link = document.link;
+  delete(document.id);
+  return document;
+};
 
 /*
  * Virtuals
@@ -77,54 +80,6 @@ AssetSchema.virtual('link').get(function () {
  * Middlewares
  */
 
-AssetSchema.pre('save', function (next) {
-    if (this.isNew || this.isModified('name')) {
-        Asset.findOne({
-            name: this.name
-        }, function (err, asset) {
-            if (err) {
-                return next(err);
-            }
-            if(!asset) {
-                return next();
-            }
-            if(asset.name === this.name) {
-                return next();
-            }
-            if (asset) {
-                return next(new Error('This asset name already exists!'));
-            }
-            return next();
-        });
-    } else {
-        return next();
-    }
-});
-
-AssetSchema.pre('save', function (next) {
-    if (this.isNew || this.isModified('version')) {
-        Asset.findOne({
-            name: this.name,
-            version: this.version
-        }, function (err, asset) {
-            if (err) {
-                return next(err);
-            }
-            if(!asset) {
-                return next();
-            }
-            if(asset.version === this.version) {
-                return next();
-            }
-            if (asset) {
-                return next(new Error('This asset version already exists!'));
-            }
-            return next();
-        });
-    } else {
-        return next();
-    }
-});
 
 //Exports model
-var Asset = module.exports = mongoose.model('Asset', AssetSchema);
+module.exports = mongoose.model('Asset', AssetSchema);

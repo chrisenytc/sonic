@@ -109,10 +109,10 @@ module.exports = {
     /**********************************/
 
     /*
-     * Route => POST /api/assets
+     * Route => POST /api/assets/upload
      */
 
-    'post /api/assets': {
+    'post /api/assets/upload': {
         controller: 'AssetCtrl',
         action: 'create'
     },

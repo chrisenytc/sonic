@@ -38,7 +38,7 @@ module.exports = function (app) {
 
 
     /*
-     * Route => POST /api/assets
+     * Route => POST /api/assets/upload
      */
 
     AssetController.prototype.create = function create(req, res, next) {
@@ -49,14 +49,14 @@ module.exports = function (app) {
         assetData.fileName = req.files.assetFile.originalname;
         assetData.version = req.body.version;
         assetData.bucket = req.body.bucket;
-        assetData.owner = null;
+        assetData.owner = req.user._id;
         //Find One
         Asset.findOne({
             name: assetData.name,
             fileName: assetData.fileName,
             version: assetData.version,
             bucket: assetData.bucket,
-            owner: null
+            owner: assetData.owner
         }).exec(function (err, asset) {
             if (err) {
                 return next(err);

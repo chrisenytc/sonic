@@ -39,7 +39,6 @@ module.exports = function (app) {
      */
 
     UserController.prototype.login = function login(req, res, next) {
-        console.log(req.body);
         User.findOne({
             username: req.body.username
         }).exec(function (err, user) {

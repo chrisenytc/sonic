@@ -6,5 +6,5 @@ module.exports = {
     url: process.env.SONIC_URI || 'http://localhost:8081',
     poweredBy: 'Sonic.js',
     port: process.env.PORT || 8081,
-    documentation_url: 'https://github.com/enytc/sonic#documentation'
+    documentation_url: 'https://github.com/enytc/snc#documentation'
 };

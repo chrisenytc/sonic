@@ -1,13 +1,5 @@
 'use strict';
 
-/*
- * Module Dependencies
- */
-
-var multer = require('multer'),
-    join = require('path').join,
-    File = require(join(__dirname, 'services', 'fileService.js'));
-
 module.exports = {
 
     /*
@@ -23,7 +15,12 @@ module.exports = {
      */
 
     UserCtrl: {
-        '*': true
+        index: 'auth',
+        login: true,
+        create: 'auth',
+        update: 'auth',
+        regenerateToken: 'auth',
+        remove: 'auth'
     },
 
     /*
@@ -31,7 +28,9 @@ module.exports = {
      */
 
     BucketCtrl: {
-        '*': true
+        index: 'auth',
+        create: 'auth',
+        remove: 'auth'
     },
 
     /*
@@ -39,13 +38,8 @@ module.exports = {
      */
 
     AssetCtrl: {
-        index: true,
-        create: multer({
-            dest: join(__dirname, '..', 'uploads'),
-            limits: {
-                files: 1
-            }
-        }),
-        remove: true
+        index: 'auth',
+        create: 'auth',
+        remove: 'auth'
     }
 };
