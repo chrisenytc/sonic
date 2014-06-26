@@ -29,7 +29,29 @@ var fs = require('fs');
  */
 
 exports.exists = function exists(path, callback) {
-    return fs.exists(path, callback);
+    if(!callback) {
+        return fs.existsSync(path);
+    } else {
+        return fs.exists(path, callback);
+    }
+};
+
+/**
+ * Method responsible for move files
+ *
+ * @example
+ *
+ *     fileService.move('./filename', './newfilename', function() {});
+ *
+ * @method move
+ * @public
+ * @param {String} oldPath File path of archive
+ * @param {String} newPath Destination path
+ * @param {Function} callback Callback with data
+ */
+
+exports.move = function move(oldPath, newPath, callback) {
+    return fs.rename(oldPath, newPath, callback);
 };
 
 /**
@@ -44,12 +66,13 @@ exports.exists = function exists(path, callback) {
  * @param {String} fillepath File path of archive
  * @param {String} encoding Encoding
  * @param {Function} callback Callback with data
- * @return {String} Returns file content
  */
 
 exports.read = function readFile(filepath, encoding, callback) {
     //Read and return this file content
-    return fs.readFile(filepath, {encoding: encoding}, callback);
+    return fs.readFile(filepath, {
+        encoding: encoding
+    }, callback);
 };
 
 /**
@@ -103,7 +126,11 @@ exports.write = function writeFile(filepath, data, callback) {
  */
 
 exports.mkdir = function mkdir(path, callback) {
-    fs.mkdir(path, callback);
+    if (!callback) {
+        fs.mkdirSync(path);
+    } else {
+        fs.mkdir(path, callback);
+    }
 };
 
 /**
@@ -137,7 +164,7 @@ exports.remove = function remove(path, callback) {
 
 exports.rm = function rm(path) {
     if (fs.existsSync(path)) {
-        fs.readdirSync(path).forEach(function(file) {
+        fs.readdirSync(path).forEach(function (file) {
             var curPath = path + '/' + file;
             if (fs.statSync(curPath).isDirectory()) { // recurse
                 exports.rm(curPath);

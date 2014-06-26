@@ -103,4 +103,35 @@ module.exports = {
         controller: 'BucketCtrl',
         action: 'index'
     },
+
+    /**********************************/
+    /* Assets                         */
+    /**********************************/
+
+    /*
+     * Route => POST /api/assets
+     */
+
+    'post /api/assets': {
+        controller: 'AssetCtrl',
+        action: 'create'
+    },
+
+    /*
+     * Route => DELETE /api/assets/:id
+     */
+
+    'delete /api/assets/:id': {
+        controller: 'AssetCtrl',
+        action: 'remove'
+    },
+
+    /*
+     * Route => GET /api/assets
+     */
+
+    'get /api/assets': {
+        controller: 'AssetCtrl',
+        action: 'index'
+    },
 };
