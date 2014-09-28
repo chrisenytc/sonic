@@ -41,16 +41,16 @@ module.exports = {
      * Route => PUT /api/users
      */
 
-    'put /api/users/:id': {
+    'put /api/users': {
         controller: 'UserCtrl',
         action: 'update'
     },
 
     /*
-     * Route => PUT /api/users/:id/regenerate
+     * Route => PUT /api/users/regenerate
      */
 
-    'put /api/users/:id/regenerate': {
+    'put /api/users/regenerate': {
         controller: 'UserCtrl',
         action: 'regenerateToken'
     },
@@ -96,6 +96,24 @@ module.exports = {
     },
 
     /*
+     * Route => GET /api/buckets/:id
+     */
+
+    'get /api/buckets/:id': {
+        controller: 'BucketCtrl',
+        action: 'show'
+    },
+
+    /*
+     * Route => GET /api/buckets/:id/versions
+     */
+
+    'get /api/buckets/:id/versions': {
+        controller: 'BucketCtrl',
+        action: 'list'
+    },
+
+    /*
      * Route => GET /api/buckets
      */
 
@@ -118,12 +136,21 @@ module.exports = {
     },
 
     /*
-     * Route => DELETE /api/assets/:id
+     * Route => DELETE /api/assets/:bucketId/:id
      */
 
-    'delete /api/assets/:id': {
+    'delete /api/assets/:bucketId/:id': {
         controller: 'AssetCtrl',
         action: 'remove'
+    },
+
+    /*
+     * Route => GET /api/assets/:bucketId/files
+     */
+
+    'get /api/assets/:bucketId/files': {
+        controller: 'AssetCtrl',
+        action: 'list'
     },
 
     /*

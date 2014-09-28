@@ -38,7 +38,7 @@ var UserSchema = new Schema({
 
     accessToken: {
         type: String,
-        default: utils.uniqueToken()
+        default: utils.uid(16)
     }
 
 });
@@ -56,17 +56,31 @@ UserSchema.methods.checkPassword = function(password) {
     return crypto.createHash('whirlpool').update(password).digest('hex') === this.password;
 };
 
+UserSchema.methods.toJSON = function() {
+  var obj = this.toObject();
+  delete(obj.password);
+  delete(obj.__v);
+  return obj;
+};
+
 /*
  * Middlewares
  */
 
 UserSchema.pre('save', function(next) {
     if (this.isNew || this.isModified('username')) {
+        var that = this;
         User.findOne({
             username: this.username
         }, function(err, user) {
             if (err) {
                 return next(err);
+            }
+            if(!user) {
+                return next();
+            }
+            if (user.username === that.username) {
+                return next();
             }
             if (user) {
                 return next(new Error('This username already exists!'));

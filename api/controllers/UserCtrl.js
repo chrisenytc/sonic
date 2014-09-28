@@ -7,10 +7,11 @@
 var util = require('util'),
     _ = require('underscore');
 
-module.exports = function (app) {
+module.exports = function(app) {
     //Root Application
     var ApplicationController = app.getLib('appController'),
-        User = app.getModel('User');
+        User = app.getModel('User'),
+        defaultToken = app.getConfig('auth').defaultToken;
 
     function UserController() {
         ApplicationController.call(this);
@@ -23,7 +24,7 @@ module.exports = function (app) {
      */
 
     UserController.prototype.index = function index(req, res, next) {
-        User.find({}).exec(function (err, users) {
+        User.find({}).select('-accessToken').exec(function(err, users) {
             if (err) {
                 return next(err);
             }
@@ -39,22 +40,44 @@ module.exports = function (app) {
      */
 
     UserController.prototype.login = function login(req, res, next) {
-        User.findOne({
-            username: req.body.username
-        }).exec(function (err, user) {
-            if (err) {
-                return next(err);
-            }
-            if (!user) {
-                return next(new Error('User not found!'));
-            }
-            if (!user.checkPassword(req.body.password)) {
-                return next(new Error('Invalid password!'));
-            }
-            return res.sendResponse(200, {
-                accessToken: user.accessToken
+        if (req.body.hasOwnProperty('accessToken') && req.body.accessToken.length > 0) {
+            User.findOne({
+                accessToken: req.body.accessToken
+            }).exec(function(err, user) {
+                if (err) {
+                    return next(err);
+                }
+                if (!user) {
+                    if (req.body.accessToken === defaultToken) {
+                        return res.sendResponse(200, {
+                            accessToken: req.body.accessToken
+                        });
+                    } else {
+                        return next(new Error('User not found!'));
+                    }
+                }
+                return res.sendResponse(200, {
+                    accessToken: user.accessToken
+                });
             });
-        });
+        } else {
+            User.findOne({
+                username: req.body.username
+            }).exec(function(err, user) {
+                if (err) {
+                    return next(err);
+                }
+                if (!user) {
+                    return next(new Error('User not found!'));
+                }
+                if (!user.checkPassword(req.body.password)) {
+                    return next(new Error('Invalid password!'));
+                }
+                return res.sendResponse(200, {
+                    accessToken: user.accessToken
+                });
+            });
+        }
     };
 
     /*
@@ -70,7 +93,7 @@ module.exports = function (app) {
         //Create Instance
         var user = new User(userData);
         //Save
-        user.save(function (err) {
+        user.save(function(err) {
             if (err) {
                 return next(err);
             }
@@ -87,14 +110,14 @@ module.exports = function (app) {
     };
 
     /*
-     * Route => PUT /api/users/:id
+     * Route => PUT /api/users/
      */
 
     UserController.prototype.update = function update(req, res, next) {
         //Update
         User.findOne({
-            _id: req.params.id
-        }).exec(function (err, user) {
+            _id: req.user._id
+        }).exec(function(err, user) {
             if (err) {
                 return next(err);
             }
@@ -116,7 +139,7 @@ module.exports = function (app) {
             //Extend
             _.extend(user, userData);
             //Save
-            user.save(function (err) {
+            user.save(function(err) {
                 if (err) {
                     return next(err);
                 }
@@ -129,14 +152,14 @@ module.exports = function (app) {
     };
 
     /*
-     * Route => PUT /api/users/:id/regenerate
+     * Route => PUT /api/users/regenerate
      */
 
     UserController.prototype.regenerateToken = function regenerateToken(req, res, next) {
         //Update
         User.findOne({
-            _id: req.params.id
-        }).exec(function (err, user) {
+            _id: req.user._id
+        }).exec(function(err, user) {
             if (err) {
                 return next(err);
             }
@@ -144,10 +167,10 @@ module.exports = function (app) {
                 return next('User not found!');
             }
             //Generate new token
-            var token = app.getService('utilsService').uniqueToken();
+            var token = app.getService('utilsService').uid(16);
             user.accessToken = token;
             //Save
-            user.save(function (err) {
+            user.save(function(err) {
                 if (err) {
                     return next(err);
                 }
@@ -167,7 +190,7 @@ module.exports = function (app) {
     UserController.prototype.remove = function remove(req, res, next) {
         User.remove({
             _id: req.params.id
-        }).exec(function (err) {
+        }).exec(function(err) {
             if (err) {
                 return next(err);
             }

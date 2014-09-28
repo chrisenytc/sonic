@@ -29,6 +29,8 @@ module.exports = {
 
     BucketCtrl: {
         index: 'auth',
+        show: 'auth',
+        list: 'auth',
         create: 'auth',
         remove: 'auth'
     },
@@ -39,6 +41,7 @@ module.exports = {
 
     AssetCtrl: {
         index: 'auth',
+        list: 'auth',
         create: 'auth',
         remove: 'auth'
     }
