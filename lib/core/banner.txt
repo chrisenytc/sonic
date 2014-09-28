@@ -13,4 +13,4 @@
                         ____//  ||_
                        /___//_\ /__|
                           
-                          Sonic.js
+                     Sonic (CDN) Server
