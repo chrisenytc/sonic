@@ -316,7 +316,7 @@ module.exports = function(app) {
                     }
                     File.exists(join(BPath, asset.bucket.toString(), asset.name, asset.version, asset.fileName), function(exists) {
                         if (exists) {
-                            File.rm(join(BPath, asset.bucket.toString(), asset.name, asset.version, asset.fileName));
+                            File.remove(join(BPath, asset.bucket.toString(), asset.name, asset.version, asset.fileName));
                             File.exists(join(BPath, asset.bucket.toString(), asset.name, asset.version, asset.fileName), function(exists) {
                                 if (!exists) {
                                     Asset.remove({
