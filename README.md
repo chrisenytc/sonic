@@ -2,7 +2,7 @@
 
 > An super fast content delivery network (CDN) for node.js
 
-[![GH version](https://badge-me.herokuapp.com/app/gh/enytc/sonic.png)](http://badges.enytc.com/for/gh/enytc/sonic)
+[![GH version](https://badge-me.herokuapp.com/api/gh/enytc/sonic.png)](http://badges.enytc.com/for/gh/enytc/sonic)
 
 ## Getting Started
 
