@@ -1,6 +1,6 @@
 {
     "name": "sonic",
-    "description": "An super fast content delivery network (CDN) for node.js",
+    "description": "A super fast content delivery network (CDN) for node.js",
     "version": "0.1.0",
     "private": true,
     "homepage": "https://github.com/enytc/sonic",

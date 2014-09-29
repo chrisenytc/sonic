@@ -2,7 +2,7 @@
 
 module.exports = {
     applicationName: 'Sonic.js',
-    description: 'An super fast content delivery network (CDN) for node.js',
+    description: 'A super fast content delivery network (CDN) for node.js',
     url: process.env.SONIC_URI || 'http://localhost:8081',
     poweredBy: 'Sonic.js',
     port: process.env.PORT || 8081,
