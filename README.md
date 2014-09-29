@@ -2,39 +2,63 @@
 
 > An super fast content delivery network (CDN) for node.js
 
-[![Build Status](https://secure.travis-ci.org/enytc/sonic.png?branch=master)](http://travis-ci.org/enytc/sonic) [![GH version](https://badge-me.herokuapp.com/app/gh/enytc/sonic.png)](http://badges.enytc.com/for/gh/enytc/sonic)
+[![GH version](https://badge-me.herokuapp.com/app/gh/enytc/sonic.png)](http://badges.enytc.com/for/gh/enytc/sonic)
 
 ## Getting Started
 
 1º Clone Sonic repo
 
 ```bash
-git clone https://github.com/enytc/sonic.git
+$ git clone https://github.com/enytc/sonic.git
 ```
 
 2º Enter in sonic directory
 ```bash
-cd sonic
+$ cd sonic
 ```
 
 3º Install dependencies
 
 ```bash
-npm install
+$ npm install
 ```
 
 4º Configure the settings in `api/config`
 
-6º Start Sonic
+5º Start Sonic
 
 ```bash
-npm start
+$ npm start
 ```
 
-Test your Sonic app
+6º Install Sonic CLI
 
 ```bash
-npm test
+$ npm install -g sonic-cli
+```
+
+7º Connect to your Sonic CDN
+
+```bash
+$ sonic connect 
+```
+
+8º Login in your Sonic CDN account
+
+```bash
+$ sonic login
+```
+
+9º Start Using
+
+```bash
+$ sonic --help
+```
+
+10º Test your Sonic app
+
+```bash
+$ npm test
 ```
 
 ## Contributing

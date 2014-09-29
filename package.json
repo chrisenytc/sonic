@@ -25,7 +25,7 @@
         "npm": ">=1.4.3"
     },
     "scripts": {
-        "start": "./node_modules/forever/bin/forever -m 5 app.js",
+        "start": "./node_modules/forever/bin/forever start web.js",
         "test": "make test"
     },
     "dependencies": {
